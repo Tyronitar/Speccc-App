@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> This is the layout </title>
+        <link rel="stylesheet" href="layout.css">
+    </head>
+    <body>
+        <div class = "wrapper">
+            <div class = "top">
+                <div id = "settings">
+                    <h1>SETTINGS</h1>
+                </div>
+                <div id = "video_wrapper">
+                    <div id = "url_input_wrapper">
+                        <input id = "url_input" type="text" placeholder="Type url here">
+                        <button id = "url_input_button">Connect to Camera</button>
+                    </div>
+                    <div id = "video_footage_wrapper">
+                        <img id = "footage" src = "" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+            <div class = "bottom">
+                <div id = "spectrum">
+                    <h1>SPECTRUM</h1>
+                </div>
+            </div>
+        </div>
+        
+        <script src = "video.js"></script>
+    </body>
+</html>
