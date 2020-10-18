@@ -6,6 +6,7 @@ footage_canvas.width = 1000;
 footage_canvas.height = 1000;
 let footage_error = false;
 let url = url_input.value
+let grayscale = false;
 
 
 let ctx = footage_canvas.getContext("2d");
@@ -26,6 +27,10 @@ url_input.addEventListener("keypress", (e) => {
     }
 })
 
+footage_canvas.addEventListener("click", () => {
+    grayscale = !grayscale
+})
+
 function change_footage() {
     footage_error = false;
     url = url_input.value
@@ -39,8 +44,10 @@ function change_footage() {
 function update_canvas() {
     ctx.clearRect(0, 0, footage_canvas.width, footage_canvas.height)
     ctx.drawImage(video_footage, 0, 0, footage_canvas.width, footage_canvas.height)
-    ctx.putImageData(new ImageData(get_grayscale(extract_pixels(ctx)),
-      footage_canvas.width, footage_canvas.height), 0, 0)
+    if (grayscale) {
+        ctx.putImageData(new ImageData(get_grayscale(extract_pixels(ctx)),
+        footage_canvas.width, footage_canvas.height), 0, 0)
+    }
     setTimeout(update_canvas, 20)
 }
 
