@@ -16,7 +16,8 @@
                         <button id = "url_input_button">Connect to Camera</button>
                     </div>
                     <div id = "video_footage_wrapper">
-                        <img id = "footage-img" src = "" onerror="this.style.display='none'">
+                        <img id = "footage-img" src = "" onerror="this.style.display='none'",
+                        crossOrigin="Anonymous">
                         <canvas id = "footage">
                         </canvas>
                     </div>
@@ -28,7 +29,8 @@
                 </div>
             </div>
         </div>
-        
+
+        <script src = "image_extraction.js"></script>
         <script src = "video.js"></script>
     </body>
 </html>

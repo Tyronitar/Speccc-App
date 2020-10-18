@@ -7,7 +7,7 @@ footage_canvas.height = 1000;
 let footage_error = false;
 let url = url_input.value
 
-    
+
 let ctx = footage_canvas.getContext("2d");
 
 
@@ -39,6 +39,8 @@ function change_footage() {
 function update_canvas() {
     ctx.clearRect(0, 0, footage_canvas.width, footage_canvas.height)
     ctx.drawImage(video_footage, 0, 0, footage_canvas.width, footage_canvas.height)
+    ctx.putImageData(new ImageData(get_grayscale(extract_pixels(ctx)),
+      footage_canvas.width, footage_canvas.height), 0, 0)
     setTimeout(update_canvas, 20)
 }
 
