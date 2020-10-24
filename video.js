@@ -4,11 +4,13 @@ const video_footage = document.getElementById("footage-img")
 const webcam_footage = document.getElementById("footage-vid")
 const webcam_toggle_button = document.getElementById("toggle_webcam")
 const footage_canvas = document.getElementById("footage")
+const chartjs = require("chart.js")
 footage_canvas.width = 1000;
 footage_canvas.height = 1000;
 let footage_error = false;
 let url = url_input.value
 let grayscale = false;
+
 
 
 let ctx = footage_canvas.getContext("2d");
