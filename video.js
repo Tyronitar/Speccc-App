@@ -1,21 +1,19 @@
+// import "./node_modules/chart.js"
+
 const url_input = document.getElementById("url_input")
 const url_input_button = document.getElementById("url_input_button")
 const video_footage = document.getElementById("footage-img")
 const webcam_footage = document.getElementById("footage-vid")
 const webcam_toggle_button = document.getElementById("toggle_webcam")
 const footage_canvas = document.getElementById("footage")
-const chartjs = require("chart")
 footage_canvas.width = 1000;
 footage_canvas.height = 1000;
 let footage_error = false;
 let url = url_input.value
 let grayscale = false;
 
-
-
 let ctx = footage_canvas.getContext("2d");
 let webcam = false
-
 
 video_footage.onerror = () => {
     footage_error = true;
