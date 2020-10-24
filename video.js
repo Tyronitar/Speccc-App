@@ -70,6 +70,9 @@ function update_canvas() {
         ctx.putImageData(new ImageData(get_grayscale(extract_pixels(ctx)),
         footage_canvas.width, footage_canvas.height), 0, 0)
     }
+    let line = Number(document.getElementById("number_input").value);
+    ctx.putImageData(new ImageData(get_pixels_with_bar(extract_pixels(ctx),line),
+    footage_canvas.width, footage_canvas.height), 0, 0)
     setTimeout(update_canvas, 20)
 }
 
