@@ -82,7 +82,7 @@ function start_spectrum() {
   var spectrum_chart = new Chart(spec_ctx, {
     type: 'line',
     data: get_spectrum(),
-    options: options
+    //options: options
 });
 }
 
