@@ -40,12 +40,12 @@ webcam_toggle_button.addEventListener("click", () => {
         // change_footage("")
         init_webcam()
     }
-    // else {
-    //     stream = webcam_footage.srcObject
-    //     stream.getTracks().forEach(function(track) {
-    //         track.stop();
-    //       });
-    // }
+    else {
+        stream = webcam_footage.srcObject
+        stream.getTracks().forEach(function(track) {
+            track.stop();
+          });
+    }
 })
 
 function change_footage(url) {
