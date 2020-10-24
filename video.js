@@ -6,6 +6,7 @@ const video_footage = document.getElementById("footage-img")
 const webcam_footage = document.getElementById("footage-vid")
 const webcam_toggle_button = document.getElementById("toggle_webcam")
 const footage_canvas = document.getElementById("footage")
+const spectrum_canvas = document.getElementById("spectrum_canvas")
 footage_canvas.width = 1000;
 footage_canvas.height = 1000;
 let footage_error = false;
@@ -13,6 +14,7 @@ let url = url_input.value
 let grayscale = false;
 
 let ctx = footage_canvas.getContext("2d");
+let spec_ctx = spectrum_canvas.getContext("2d")
 let webcam = false
 
 video_footage.onerror = () => {
@@ -74,6 +76,14 @@ function update_canvas() {
     ctx.putImageData(new ImageData(get_pixels_with_bar(extract_pixels(ctx),line),
     footage_canvas.width, footage_canvas.height), 0, 0)
     setTimeout(update_canvas, 20)
+}
+
+function start_spectrum() {
+  var spectrum_chart = new Chart(spec_ctx, {
+    type: 'line',
+    data: get_spectrum(),
+    options: options
+});
 }
 
 const constraints = {
