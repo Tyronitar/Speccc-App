@@ -4,9 +4,7 @@ Plan for how to plot spectra: pick a horizontal line of pixels to measure the
 intensity. We'll determine the left most pixels to be 740 nm and the right most
 pixels to be 380 nm. We'll call the percent length down the line proportional
 to the percent change in wavelength. The image will always be 1000x1000 but
-I'll just call the width anyway.
-We will refer to wavele
-*/
+I'll just call the width anyway. */
 //pixels = extract_pixels(context);
 //let intensity = get_intensity_of_line(pixels, line);
 //let width = footage.width;
