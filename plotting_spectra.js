@@ -19,7 +19,7 @@ wavelength = 740-(380+740)(location/width). Based on the way image_extraction.js
 was written, the intensity will always be an array of 1000 integer elements.
 This returns an array of the form [{x:wavelength, y:intensity},...]
 */
-function make_spectra (intensity, width){
+function make_spectra (intensity){
     let spectrum = Array(intensity.length);
     for (let i = 0; i<intensity.length; i++){
         spectrum[i] = {x: 740-((740-380)*(i/(intensity.length-1))), y:intensity[i]};
@@ -27,3 +27,6 @@ function make_spectra (intensity, width){
    return spectrum;
 }
 //console.log(make_spectra(intensity,intensity.length));
+function get_spectrum(pix, line) {
+  return make_spectra(get_intensity_of_line(pix, line))
+}

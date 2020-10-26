@@ -99,11 +99,11 @@ body {
     position: relative;
     margin: auto;
     padding: 0%;
-    
+
 }
 
 #spectrum {
-    background-color: green;
+    background-color: white;
     height: 100%;
     width: 100%;
     position: relative;
@@ -111,7 +111,7 @@ body {
 }
 
 #spectrum_canvas {
-    background-color: green;
+    background-color: white;
     height: 100%;
     width: 100%;
     position: relative;

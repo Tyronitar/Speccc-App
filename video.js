@@ -16,6 +16,7 @@ let grayscale = false;
 let ctx = footage_canvas.getContext("2d");
 let spec_ctx = spectrum_canvas.getContext("2d")
 let webcam = false
+var spectrum_chart
 
 video_footage.onerror = () => {
     footage_error = true;
@@ -78,10 +79,15 @@ function update_canvas() {
     setTimeout(update_canvas, 20)
 }
 
-function start_spectrum() {
-  var spectrum_chart = new Chart(spec_ctx, {
-    type: 'line',
-    data: get_spectrum(),
+function start_spectrum(pix, line) {
+  spectrum_chart = new Chart(spec_ctx, {
+    type: 'scatter',
+    {
+        datasets: [{
+            label: 'Scatter Dataset',
+            data: get_spectrum(pix, line)
+          }]
+    }
     //options: options
 });
 }
