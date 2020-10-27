@@ -112,8 +112,8 @@ body {
 
 #spectrum_canvas {
     background-color: white;
-    height: 100%;
-    width: 100%;
+    height: 100% !important;
+    width: 100% !important;
     position: relative;
     margin: auto;
 }

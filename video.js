@@ -82,6 +82,10 @@ function update_canvas() {
 }
 
 function start_spectrum(pix, line) {
+  spec_ctx.clearRect(0, 0, footage_canvas.width, footage_canvas.height)
+  if (spectrum_chart) {
+      spectrum_chart.destroy()
+  }
   spectrum_chart = new Chart(spec_ctx, {
     type: 'scatter',
     data:
@@ -90,8 +94,11 @@ function start_spectrum(pix, line) {
             label: 'Scatter Dataset',
             data: get_spectrum(pix, line)
           }]
+    },
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
     }
-    //options: options
 });
 }
 
