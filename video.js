@@ -13,6 +13,8 @@ let footage_error = false;
 let url = url_input.value
 let grayscale = false;
 
+const line_choice = document.getElementById("number_input")
+
 let ctx = footage_canvas.getContext("2d");
 let spec_ctx = spectrum_canvas.getContext("2d")
 let webcam = false
@@ -35,8 +37,6 @@ url_input.addEventListener("keypress", (e) => {
 
 footage_canvas.addEventListener("click", () => {
     grayscale = !grayscale
-    let line = Number(document.getElementById("number_input").value);
-    start_spectrum(extract_pixels(ctx), line)
 })
 
 webcam_toggle_button.addEventListener("click", () => {
@@ -53,6 +53,11 @@ webcam_toggle_button.addEventListener("click", () => {
     }
 })
 
+line_choice.addEventListener("change", () => {
+    let line = Number(line_choice.value);
+    start_spectrum(extract_pixels(ctx), line)
+})
+
 function change_footage(url) {
     webcam = false
     footage_error = false
@@ -62,6 +67,27 @@ function change_footage(url) {
         video_footage.style.display = 'block'
     }
 }
+
+
+
+function update_spectrum() {
+    let line = Number(line_choice.value);
+    if (spectrum_chart) {
+        spec_ctx.clearRect(0, 0, footage_canvas.width, footage_canvas.height)
+        spectrum_chart.config.data = {
+            datasets: [{
+                label: 'Scatter Dataset',
+                data: get_spectrum(extract_pixels(ctx), line)
+            }]
+          }
+        //   spectrum_chart.destroy()
+        spectrum_chart.update()
+    }
+    else {
+        start_spectrum(extract_pixels(ctx), line)
+    }
+}
+
 
 function update_canvas() {
     ctx.clearRect(0, 0, footage_canvas.width, footage_canvas.height)
@@ -75,29 +101,29 @@ function update_canvas() {
         ctx.putImageData(new ImageData(get_grayscale(extract_pixels(ctx)),
         footage_canvas.width, footage_canvas.height), 0, 0)
     }
-    let line = Number(document.getElementById("number_input").value);
+    let line = Number(line_choice.value);
     ctx.putImageData(new ImageData(get_pixels_with_bar(extract_pixels(ctx),line),
     footage_canvas.width, footage_canvas.height), 0, 0)
-    setTimeout(update_canvas, 20)
+    // setTimeout(update_canvas, 20)
 }
 
 function start_spectrum(pix, line) {
   spec_ctx.clearRect(0, 0, footage_canvas.width, footage_canvas.height)
-  if (spectrum_chart) {
-      spectrum_chart.destroy()
-  }
-  spectrum_chart = new Chart(spec_ctx, {
+    spectrum_chart = new Chart(spec_ctx, {
     type: 'scatter',
     data:
     {
         datasets: [{
             label: 'Scatter Dataset',
             data: get_spectrum(pix, line)
-          }]
+        }]
     },
     options: {
         maintainAspectRatio: false,
         responsive: true,
+        animation: {
+            duration: 0
+        },
     }
 });
 }
@@ -127,4 +153,5 @@ function handleSuccess(stream) {
     webcam_footage.play()
 }
 
-update_canvas();
+setInterval(update_canvas, 20)
+setInterval(update_spectrum, 100)
