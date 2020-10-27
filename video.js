@@ -35,6 +35,8 @@ url_input.addEventListener("keypress", (e) => {
 
 footage_canvas.addEventListener("click", () => {
     grayscale = !grayscale
+    let line = Number(document.getElementById("number_input").value);
+    start_spectrum(extract_pixels(ctx), line)
 })
 
 webcam_toggle_button.addEventListener("click", () => {
@@ -82,6 +84,7 @@ function update_canvas() {
 function start_spectrum(pix, line) {
   spectrum_chart = new Chart(spec_ctx, {
     type: 'scatter',
+    data:
     {
         datasets: [{
             label: 'Scatter Dataset',
