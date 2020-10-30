@@ -7,8 +7,11 @@ const webcam_footage = document.getElementById("footage-vid")
 const webcam_toggle_button = document.getElementById("toggle_webcam")
 const footage_canvas = document.getElementById("footage")
 const spectrum_canvas = document.getElementById("spectrum_canvas")
+const spectrum_div = document.getElementById("spectrum")
 footage_canvas.width = 1000;
 footage_canvas.height = 1000;
+spectrum_canvas.width = 1000;
+spectrum_canvas.height = 1000;
 let footage_error = false;
 let url = url_input.value
 let grayscale = false;
@@ -17,8 +20,30 @@ const line_choice = document.getElementById("number_input")
 
 let ctx = footage_canvas.getContext("2d");
 let spec_ctx = spectrum_canvas.getContext("2d")
+
+let gradientStroke
+
+
 let webcam = false
-var spectrum_chart
+let spectrum_chart
+
+
+function update_gradient() {
+    let curr_width = spectrum_div.offsetWidth
+    gradientStroke = spec_ctx.createLinearGradient(0, 0, curr_width, 0)
+    gradientStroke.addColorStop(0, "#000000")
+    gradientStroke.addColorStop(0.25, "#ff0000")
+    gradientStroke.addColorStop(0.375, "#ffff00")
+    gradientStroke.addColorStop(0.5, "#00ff00")
+    gradientStroke.addColorStop(0.626, "#00ffff")
+    gradientStroke.addColorStop(0.75, "#0000ff")
+    gradientStroke.addColorStop(0.825, "#660066")
+    gradientStroke.addColorStop(1, "#000000")
+}
+
+
+window.addEventListener("resize", update_gradient)
+
 
 video_footage.onerror = () => {
     footage_error = true;
@@ -53,11 +78,6 @@ webcam_toggle_button.addEventListener("click", () => {
     }
 })
 
-line_choice.addEventListener("change", () => {
-    let line = Number(line_choice.value);
-    start_spectrum(extract_pixels(ctx), line)
-})
-
 function change_footage(url) {
     webcam = false
     footage_error = false
@@ -73,14 +93,23 @@ function change_footage(url) {
 function update_spectrum() {
     let line = Number(line_choice.value);
     if (spectrum_chart) {
-        spec_ctx.clearRect(0, 0, footage_canvas.width, footage_canvas.height)
+        spectrum_chart.config.data.datasets[0].data = get_spectrum(extract_pixels(ctx), line)
         spectrum_chart.config.data = {
             datasets: [{
                 label: 'Scatter Dataset',
-                data: get_spectrum(extract_pixels(ctx), line)
+                data: get_spectrum(extract_pixels(ctx), line),
+                pointRadius: 0,
+                borderColor:               gradientStroke,
+                pointBorderColor:          gradientStroke,
+                pointBackgroundColor:      gradientStroke,
+                pointHoverBackgroundColor: gradientStroke,
+                pointHoverBorderColor:     gradientStroke,
+                fill: true,
+                backgroundColor: gradientStroke,
+                showLine: true
             }]
           }
-        //   spectrum_chart.destroy()
+        console.log("updated")
         spectrum_chart.update()
     }
     else {
@@ -104,7 +133,6 @@ function update_canvas() {
     let line = Number(line_choice.value);
     ctx.putImageData(new ImageData(get_pixels_with_bar(extract_pixels(ctx),line),
     footage_canvas.width, footage_canvas.height), 0, 0)
-    // setTimeout(update_canvas, 20)
 }
 
 function start_spectrum(pix, line) {
@@ -115,8 +143,18 @@ function start_spectrum(pix, line) {
     {
         datasets: [{
             label: 'Scatter Dataset',
-            data: get_spectrum(pix, line)
-        }]
+            data: get_spectrum(pix, line),
+            pointRadius: 0,
+            borderColor:               gradientStroke,
+            pointBorderColor:          gradientStroke,
+            pointBackgroundColor:      gradientStroke,
+            pointHoverBackgroundColor: gradientStroke,
+            pointHoverBorderColor:     gradientStroke,
+            fill: true,
+            backgroundColor: gradientStroke,
+            showLine: true
+        }],
+        showLine: true
     },
     options: {
         maintainAspectRatio: false,
@@ -155,3 +193,5 @@ function handleSuccess(stream) {
 
 setInterval(update_canvas, 20)
 setInterval(update_spectrum, 100)
+
+update_gradient()
