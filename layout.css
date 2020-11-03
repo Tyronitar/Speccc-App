@@ -68,9 +68,11 @@ body {
 }
 
 #video_footage_wrapper {
-    overflow: scroll;
+    position: absolute;
+    overflow: hidden;
     background-color: black;
-    height: 0;
+    height: 90%;
+    width: 100%;
 }
 #footage {
     background-color: black;
@@ -86,10 +88,10 @@ body {
     display: block;
     position: absolute;
     outline: 2px solid orange;
-    height: 30%;
-    width: 30%;
-    left: 35%;
-    top: 35%;
+    height: 40%;
+    width: 50%;
+    left: 25%;
+    top: 30%;
     z-index: 2;
 }
 .bottom {

@@ -13,6 +13,8 @@ const spectrum_canvas = document.getElementById("spectrum_canvas")
 const spectrum_div = document.getElementById("spectrum")
 const line_choice = document.getElementById("number_input")
 const m_area = document.getElementById("measurement_area")
+const start_y = document.getElementById("start_y")
+const size_y = document.getElementById("size_y")
 
 //
 // canvas contexts
@@ -64,7 +66,6 @@ footage_canvas.addEventListener("click", () => {
 webcam_toggle_button.addEventListener("click", () => {
     webcam = !webcam
     if (webcam) {
-        // change_footage("")
         init_webcam()
     }
     else {
@@ -76,6 +77,7 @@ webcam_toggle_button.addEventListener("click", () => {
 })
 
 spectrum_canvas.addEventListener("wheel", e => {
+    e.preventDefault()
     resize_m_area(e.deltaY)
 })
 
@@ -83,6 +85,14 @@ spectrum_canvas.addEventListener("mousedown", e => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
     dragMouseDown(e)
 })
+
+start_y.oninput = () => {
+    move_m_area(Number(start_y.value), m_area_stats.left)
+}
+
+size_y.oninput = () => {
+    resize_m_area(0, Number(size_y.value) - m_area_stats.height)
+}
 
 //
 // video canvas things
@@ -215,24 +225,24 @@ function update_gradient() {
 //
 // Measurement Area Stuff
 //
-let m_area_stats = {width: 50, height: 30, left: 25, right: 75, top: 40}
+let m_area_stats = {width: 50, height: 40, left: 25, right: 75, top: 30, bottom: 70}
 
 let bounds = {min_w: 25,
     max_w: 100,
-    min_h: 30,
-    max_h: 90,
+    min_h: 20,
+    max_h: 100,
     min_x: 0,
     max_x: 100,
     min_y: 0,
-    max_y: 90
+    max_y: 100
 }
 
 const size_diff = 4
 
-function resize_m_area(dx) {
+function resize_m_area(dx, dy) {
     const neg = dx < 0 ? -1 : 1
     let dw = neg * size_diff
-    if (in_bounds(m_area_stats.width + dw, "width")) {
+    if (in_bounds(m_area_stats.width + dw, "width") && dx !== 0) {
         let dl = 0, dr = 0
 
         if (in_bounds(m_area_stats.left - (dw / 2), "left")) {
@@ -265,16 +275,34 @@ function resize_m_area(dx) {
         m_area_stats.right += dr
     }
 
+    if (in_bounds(m_area_stats.height + dy, "height")) {
+        let dt = 0, db = 0
+
+        if (in_bounds(m_area_stats.bottom + dy, "bottom")) {
+            db = dy
+        }
+        else {
+            dy = 0
+        }
+        m_area_stats.height += dy
+        m_area_stats.top -= dt
+        m_area_stats.bottom += db
+    }
+
     m_area.style.height = "" + m_area_stats.height + "%"
     m_area.style.width = "" + m_area_stats.width + "%"
     m_area.style.left = "" + m_area_stats.left + "%"
     m_area.style.right = "" + m_area_stats.right + "%"
     m_area.style.top = "" + m_area_stats.top + "%"
+    m_area.style.bottom = "" + m_area_stats.bottom + "%"
 }
 
 function move_m_area(new_top, new_left) {
-    if (in_bounds(new_top, "y")) {
+    console.log("New top: " + new_top)
+    if (in_bounds(new_top, "top")) {
         m_area_stats.top = new_top
+        console.log("Top changed")
+        m_area_stats.bottom = m_area_stats.top + m_area_stats.height
     }
     if (in_bounds(new_left, "x")) {
         m_area_stats.left = new_left
@@ -284,6 +312,7 @@ function move_m_area(new_top, new_left) {
     m_area.style.left = "" + m_area_stats.left + "%"
     m_area.style.right = "" + m_area_stats.right + "%"
     m_area.style.top = "" + m_area_stats.top + "%"
+    m_area.style.bottom = "" + m_area_stats.bottom + "%"
 
 }
 
@@ -297,8 +326,13 @@ function in_bounds(arg, to_test) {
     else if (to_test === "x") {
         return arg >= bounds.min_x && arg + m_area_stats.width <= bounds.max_x
     }
-    else if (to_test === "y") {
+    else if (to_test === "top") {
+        console.log("Arg :" + arg + "\nMin Y: " + bounds.min_y + "\nMax Y: " + bounds.max_y + "\nHeight: "
+         + m_area_stats.height + "\nArg + height: " + Number(arg + m_area_stats.height))
         return arg >= bounds.min_y && arg + m_area_stats.height <= bounds.max_y
+    }
+    else if (to_test === "bottom") {
+        return arg <= bounds.max_y && arg - m_area_stats.height >= bounds.min_y
     }
     else if (to_test === "left") {
         return arg >= bounds.min_x
@@ -334,11 +368,6 @@ function dragMouseDown(e) {
     let new_top = px_to_percent(m_area.offsetTop - pos2, "y")
     let new_left = px_to_percent(m_area.offsetLeft - pos1, "x")
     new_top = m_area_stats.top // This line limits movement to x axis only
-    
-    // console.log("offsetTop: " + m_area.offsetTop +"\nIn percent: " + px_to_percent(m_area.offsetTop, "y") +
-    //             "\nMy stored values: " + m_area_stats.top + "\nNew top: " + new_top)
-    // console.log("offsetLeft: " + m_area.offsetLeft +"\nIn percent: " + px_to_percent(m_area.offsetLeft, "x") +
-    //             "\nMy stored values: " + m_area_stats.left + "\nNew left: " + new_left)
     move_m_area(new_top, new_left)
   }
 
@@ -350,7 +379,8 @@ function dragMouseDown(e) {
 
 function px_to_percent(num, axis) {
     const w = video_footage_wrapper.offsetWidth
-    const h = video_footage_wrapper.offsetHeight
+    const h = video_footage_wrapper.clientHeight
+    console.log("(w, h): " + w + ", " + h)
 
     if (axis === "x") {
         return num / w * 100
@@ -364,7 +394,7 @@ function px_to_percent(num, axis) {
 // Run when starting
 //
 
-resize_m_area(0)
+resize_m_area(0, 0)
 
 setInterval(update_video_canavs, 20)
 setInterval(update_spectrum, 100)
