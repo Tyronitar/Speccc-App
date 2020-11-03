@@ -11,6 +11,15 @@
                     <h1>SETTINGS</h1>
                     <button id = "toggle_webcam">Toggle Webcam</button>
                     <input id = "number_input" type="number" placeholder="Choose Number">
+                    <h2>Measurement Area</h2>
+                    <span>
+                        <label id = "size_y_label">Size Y</label>
+                        <input id = "size_y" type="number" placeholder="size_y" value="40">
+                    </span>
+                    <span>
+                        <label>Start Y</label>
+                        <input id = "start_y" type="number" placeholder="start_y" value="40">
+                    </span>
                 </div>
                 <div id = "video_wrapper">
                     <div id = "url_input_wrapper">
@@ -23,6 +32,7 @@
                         <video id = "footage-vid"></video>
                         <canvas id = "footage">
                         </canvas>
+                        <div id = "measurement_area"></div>
                     </div>
                 </div>
             </div>
