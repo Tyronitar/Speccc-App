@@ -31,6 +31,18 @@ function get_pixels_with_bar(pixels, line) {
   return newpix;
 }
 
+function get_intensity_of_box(pixels, ymin, ymax, xmin, xmax) {
+  let intensity = new Array(xmax-xmin+1)
+  for (let i = xmin; i <= xmax; i++) {
+    intensity[i] = 0
+    for (let j = ymin; j <= ymax; j += 1) {
+      index = (1000 * 4 * j) + i
+      intensity[i] += (pixels[index]+pixels[index+1]+pixels[index+2])/3
+    }
+    intensity[i] /= (ymax - ymin + 1)
+  }
+}
+
 function get_intensity_of_line(pixels, line) {
   let intensity = new Array(1000)
   for (let i = line*4*1000; i < (line+1)*4*1000; i += 4) {
