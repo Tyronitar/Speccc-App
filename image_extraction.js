@@ -41,6 +41,7 @@ function get_intensity_of_box(pixels, ymin, ymax, xmin, xmax) {
     }
     intensity[i] /= (ymax - ymin + 1)
   }
+  return intensity
 }
 
 function get_intensity_of_line(pixels, line) {
