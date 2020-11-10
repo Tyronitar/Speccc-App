@@ -11,7 +11,6 @@ const webcam_toggle_button = document.getElementById("toggle_webcam")
 const footage_canvas = document.getElementById("footage")
 const spectrum_canvas = document.getElementById("spectrum_canvas")
 const spectrum_div = document.getElementById("spectrum")
-const line_choice = document.getElementById("number_input")
 const m_area = document.getElementById("measurement_area")
 const start_y = document.getElementById("start_y")
 const size_y = document.getElementById("size_y")
@@ -96,6 +95,11 @@ m_area.addEventListener("mousedown", e => {
     dragMouseDown(e)
 })
 
+m_area.addEventListener("wheel", e => {
+    e.preventDefault()
+    resize_m_area(e.deltaY)
+})
+
 start_y.oninput = () => {
     move_m_area(Number(start_y.value), m_area_stats.left)
 }
@@ -126,9 +130,6 @@ function update_video_canavs() {
         ctx.putImageData(new ImageData(get_grayscale(extract_pixels(ctx)),
         footage_canvas.width, footage_canvas.height), 0, 0)
     }
-    let line = Number(line_choice.value);
-    //ctx.putImageData(new ImageData(get_pixels_with_bar(extract_pixels(ctx),line),
-    // footage_canvas.width, footage_canvas.height), 0, 0)
 }
 
 function change_footage(url) {
@@ -164,7 +165,7 @@ function handleSuccess(stream) {
 //
 Chart.defaults.global.legend.display = false;
 
-function start_spectrum(pix, line) {
+function start_spectrum(pix) {
     spec_ctx.clearRect(0, 0, footage_canvas.width, footage_canvas.height)
     spectrum_chart = new Chart(spec_ctx, {
         type: 'scatter',
@@ -196,9 +197,7 @@ function start_spectrum(pix, line) {
 }
 
 function update_spectrum() {
-    let line = Number(line_choice.value);
     if (spectrum_chart) {
-        spectrum_chart.config.data.datasets[0].data = get_spectrum(extract_pixels(ctx), line)
         spectrum_chart.config.data = {
             datasets: [{
                 // label: 'Scatter Dataset',
@@ -217,7 +216,7 @@ function update_spectrum() {
         spectrum_chart.update()
     }
     else {
-        start_spectrum(extract_pixels(ctx), line)
+        start_spectrum(extract_pixels(ctx))
     }
 }
 
@@ -248,6 +247,7 @@ let bounds = {min_w: 5,
     min_y: 0,
     max_y: 100
 }
+
 
 const size_diff = 2
 
@@ -288,7 +288,7 @@ function resize_m_area(dx, dy) {
     }
 
     if (in_bounds(m_area_stats.height + dy, "height")) {
-        let dt = 0, db = 0
+        let  db = 0
 
         if (in_bounds(m_area_stats.bottom + dy, "bottom")) {
             db = dy
@@ -297,8 +297,11 @@ function resize_m_area(dx, dy) {
             dy = 0
         }
         m_area_stats.height += dy
-        m_area_stats.top -= dt
         m_area_stats.bottom += db
+        size_y.max = bounds.max_h - m_area_stats.top - 1;
+        size_y.min = bounds.min_h;
+        start_y.min = bounds.min_y;
+        start_y.max = bounds.max_y - m_area_stats.height - 1;
     }
 
     m_area.style.height = "" + m_area_stats.height + "%"
@@ -401,7 +404,8 @@ function px_to_percent(num, axis) {
 // Run when starting
 //
 
-resize_m_area(0, 0)
+move_m_area(Number(start_y.value), m_area_stats.left)
+resize_m_area(0, Number(size_y.value) - m_area_stats.height)
 
 setInterval(update_video_canavs, 20)
 setInterval(update_spectrum, 100)

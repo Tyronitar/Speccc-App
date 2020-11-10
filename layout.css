@@ -1,6 +1,7 @@
 body {
-    min-height: 600px;
-    min-width: 600px;;
+    min-width:800px;
+    width: auto !important;
+    width:800px;
 }
 
 .wrapper {
@@ -31,6 +32,22 @@ body {
     width: 33%;
     float: left;
     height: 100%;
+    padding: 0%;
+}
+
+#settings_top {
+    display: block;
+    position: relative;
+    top: 0%;
+    height: 30%;
+    width: 100%;
+}
+
+#toggle_webcam {
+    height: 40%;
+}
+#settings_bottom {
+    height: 50%;
 }
 
 #size_y {
