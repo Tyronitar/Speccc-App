@@ -39,7 +39,6 @@ function get_box_spectrum(pix) {
   ymax = Math.floor(1000 * (m_area.offsetTop + m_area.clientHeight) / size_of_y)
   xmin = Math.floor(1000 * m_area.offsetLeft / size_of_x)
   xmax = Math.floor(1000 * (m_area.offsetLeft + m_area.clientWidth) / size_of_x)
-  console.log(xmax, xmin)
   return make_spectra(get_intensity_of_box(pix, ymin, ymax, xmin, xmax))
 
 
