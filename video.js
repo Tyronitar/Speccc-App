@@ -117,7 +117,7 @@ function update_video_canavs() {
         footage_canvas.width, footage_canvas.height), 0, 0)
     }
     let line = Number(line_choice.value);
-    ctx.putImageData(new ImageData(get_pixels_with_bar(extract_pixels(ctx),line),
+    //ctx.putImageData(new ImageData(get_pixels_with_bar(extract_pixels(ctx),line),
     footage_canvas.width, footage_canvas.height), 0, 0)
 }
 
