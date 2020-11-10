@@ -36,7 +36,7 @@ function get_intensity_of_box(pixels, ymin, ymax, xmin, xmax) {
   for (let i = xmin; i <= xmax; i++) {
     intensity[i-xmin] = 0
     for (let j = ymin; j <= ymax; j += 1) {
-      index = (1000 * 4 * j) + i
+      index = (1000 * 4 * j) + i * 4
       intensity[i-xmin] += (pixels[index]+pixels[index+1]+pixels[index+2])/3
     }
     intensity[i-xmin] /= (ymax - ymin + 1)
