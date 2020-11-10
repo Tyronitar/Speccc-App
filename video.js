@@ -86,6 +86,16 @@ spectrum_canvas.addEventListener("mousedown", e => {
     dragMouseDown(e)
 })
 
+// footage_canvas.addEventListener("mousedown", e => {
+//     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
+//     dragMouseDown(e)
+// })
+
+m_area.addEventListener("mousedown", e => {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
+    dragMouseDown(e)
+})
+
 start_y.oninput = () => {
     move_m_area(Number(start_y.value), m_area_stats.left)
 }
@@ -152,6 +162,8 @@ function handleSuccess(stream) {
 //
 // Spectrum stuff
 //
+Chart.defaults.global.legend.display = false;
+
 function start_spectrum(pix, line) {
     spec_ctx.clearRect(0, 0, footage_canvas.width, footage_canvas.height)
     spectrum_chart = new Chart(spec_ctx, {
@@ -159,7 +171,7 @@ function start_spectrum(pix, line) {
         data:
         {
             datasets: [{
-                label: 'Scatter Dataset',
+                // label: 'Scatter Dataset',
                 data: get_box_spectrum(pix),
                 pointRadius: 0,
                 borderColor:               gradientStroke,
@@ -189,7 +201,7 @@ function update_spectrum() {
         spectrum_chart.config.data.datasets[0].data = get_spectrum(extract_pixels(ctx), line)
         spectrum_chart.config.data = {
             datasets: [{
-                label: 'Scatter Dataset',
+                // label: 'Scatter Dataset',
                 data: get_box_spectrum(extract_pixels(ctx)),
                 pointRadius: 0,
                 borderColor:               gradientStroke,
@@ -227,9 +239,9 @@ function update_gradient() {
 //
 let m_area_stats = {width: 50, height: 40, left: 25, right: 75, top: 30, bottom: 70}
 
-let bounds = {min_w: 25,
+let bounds = {min_w: 5,
     max_w: 100,
-    min_h: 20,
+    min_h: 5,
     max_h: 100,
     min_x: 0,
     max_x: 100,
@@ -237,7 +249,7 @@ let bounds = {min_w: 25,
     max_y: 100
 }
 
-const size_diff = 4
+const size_diff = 2
 
 function resize_m_area(dx, dy) {
     const neg = dx < 0 ? -1 : 1
