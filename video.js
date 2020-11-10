@@ -160,7 +160,7 @@ function start_spectrum(pix, line) {
         {
             datasets: [{
                 label: 'Scatter Dataset',
-                data: get_spectrum(pix, line),
+                data: get_box_spectrum(pix),
                 pointRadius: 0,
                 borderColor:               gradientStroke,
                 pointBorderColor:          gradientStroke,
@@ -190,7 +190,7 @@ function update_spectrum() {
         spectrum_chart.config.data = {
             datasets: [{
                 label: 'Scatter Dataset',
-                data: get_spectrum(extract_pixels(ctx), line),
+                data: get_box_spectrum(extract_pixels(ctx)),
                 pointRadius: 0,
                 borderColor:               gradientStroke,
                 pointBorderColor:          gradientStroke,
@@ -390,7 +390,7 @@ function px_to_percent(num, axis) {
     }
 }
 
-// 
+//
 // Run when starting
 //
 

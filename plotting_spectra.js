@@ -30,3 +30,18 @@ function make_spectra (intensity){
 function get_spectrum(pix, line) {
   return make_spectra(get_intensity_of_line(pix, line))
 }
+
+function get_box_spectrum(pix) {
+  footage_wrapper = document.getElementById("video_footage_wrapper")
+  size_of_x = footage_wrapper.clientWidth
+  size_of_y = footage_wrapper.clientHeight
+  ymin = Math.floor(1000 * m_area.offsetTop / size_of_y)
+  ymax = Math.floor(1000 * (m_area.offsetTop + m_area.clientHeight) / size_of_y)
+  xmin = Math.floor(1000 * m_area.offsetLeft / size_of_x)
+  xmax = Math.floor(1000 * (m_area.offsetLeft + m_area.clientWidth) / size_of_x)
+  console.log(xmax, xmin)
+  return make_spectra(get_intensity_of_box(pix, ymin, ymax, xmin, xmax))
+
+
+
+}
