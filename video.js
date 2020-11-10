@@ -20,8 +20,8 @@ const size_y = document.getElementById("size_y")
 // canvas contexts
 //
 
-let ctx = footage_canvas.getContext("2d");
-let spec_ctx = spectrum_canvas.getContext("2d")
+const ctx = footage_canvas.getContext("2d");
+const spec_ctx = spectrum_canvas.getContext("2d")
 
 // set resolution of canvases
 footage_canvas.width = 1000;
@@ -118,7 +118,7 @@ function update_video_canavs() {
     }
     let line = Number(line_choice.value);
     //ctx.putImageData(new ImageData(get_pixels_with_bar(extract_pixels(ctx),line),
-    footage_canvas.width, footage_canvas.height), 0, 0)
+    // footage_canvas.width, footage_canvas.height), 0, 0)
 }
 
 function change_footage(url) {
