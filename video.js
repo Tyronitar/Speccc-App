@@ -298,10 +298,8 @@ function resize_m_area(dx, dy) {
 }
 
 function move_m_area(new_top, new_left) {
-    console.log("New top: " + new_top)
     if (in_bounds(new_top, "top")) {
         m_area_stats.top = new_top
-        console.log("Top changed")
         m_area_stats.bottom = m_area_stats.top + m_area_stats.height
     }
     if (in_bounds(new_left, "x")) {
@@ -327,8 +325,6 @@ function in_bounds(arg, to_test) {
         return arg >= bounds.min_x && arg + m_area_stats.width <= bounds.max_x
     }
     else if (to_test === "top") {
-        console.log("Arg :" + arg + "\nMin Y: " + bounds.min_y + "\nMax Y: " + bounds.max_y + "\nHeight: "
-         + m_area_stats.height + "\nArg + height: " + Number(arg + m_area_stats.height))
         return arg >= bounds.min_y && arg + m_area_stats.height <= bounds.max_y
     }
     else if (to_test === "bottom") {
@@ -380,7 +376,6 @@ function dragMouseDown(e) {
 function px_to_percent(num, axis) {
     const w = video_footage_wrapper.offsetWidth
     const h = video_footage_wrapper.clientHeight
-    console.log("(w, h): " + w + ", " + h)
 
     if (axis === "x") {
         return num / w * 100
