@@ -42,11 +42,14 @@
             <div class = "bottom">
                 <div id = "spectrum">
                     <canvas id = "spectrum_canvas"></canvas>
+                    <div class="slidecontainer">
+                      <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                    </div>
                     <!-- <h1>SPECTRUM</h1> -->
                 </div>
             </div>
         </div>
-
+        <script src = "callibration.js"></script>
         <script src = "node_modules/chart.js/dist/Chart.bundle.js"></script>
         <script src = "plotting_spectra.js"></script>
         <script src = "image_extraction.js"></script>
