@@ -1,17 +1,17 @@
 {
   "name": "spectacular",
   "version": "1.0.0",
-  "description": "",
+  "description": "Spectrometer Application",
   "main": "main.js",
   "productName": "Spectacular",
   "scripts": {
     "electron": "electron ."
   },
-  "author": "Tyrone McNichols",
   "contributors": [
-        "Tyrone McNichols",
-        "Marcos Perez",
-        "Elijah Paul"],
+    "Tyrone McNichols",
+    "Marcos Perez",
+    "Elijah Paul"
+  ],
   "license": "ISC",
   "dependencies": {
     "chart.js": "^2.9.4",
