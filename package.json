@@ -1,0 +1,20 @@
+{
+  "name": "spectacular",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "productName": "Spectacular",
+  "scripts": {
+    "electron": "electron ."
+  },
+  "author": "Tyrone McNichols",
+  "contributors": [
+        "Tyrone McNichols",
+        "Marcos Perez",
+        "Elijah Paul"],
+  "license": "ISC",
+  "dependencies": {
+    "chart.js": "^2.9.4",
+    "electron": "^10.1.5"
+  }
+}

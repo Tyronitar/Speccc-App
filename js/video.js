@@ -14,6 +14,7 @@ const spectrum_div = document.getElementById("spectrum")
 const m_area = document.getElementById("measurement_area")
 const start_y = document.getElementById("start_y")
 const size_y = document.getElementById("size_y")
+const cam_select = document.getElementById('cam_select');
 
 //
 // canvas contexts
@@ -34,16 +35,19 @@ spectrum_canvas.height = 1000;
 
 let footage_error = false;
 let url = url_input.value
-let grayscale = false;
 let gradientStroke
-let webcam = false
+let webcam_enabled = false
 let spectrum_chart
+let current_stream
+
+let video_constraints = {
+    width: 1280,
+    height: 720
+}
 
 const constraints = {
     audio: false,
-    video: {
-        width: 1280, height: 720
-    }
+    video: video_constraints
 }
 
 //
@@ -54,24 +58,10 @@ window.addEventListener("resize", update_gradient)
 url_input_button.addEventListener("click", () => {
     change_footage(url_input.value);
 })
+
 url_input.addEventListener("keypress", (e) => {
     if (e.key === 'Enter') {
         change_footage(url_input.value);
-    }
-})
-footage_canvas.addEventListener("click", () => {
-    grayscale = !grayscale
-})
-webcam_toggle_button.addEventListener("click", () => {
-    webcam = !webcam
-    if (webcam) {
-        init_webcam()
-    }
-    else {
-        stream = webcam_footage.srcObject
-        stream.getTracks().forEach(function(track) {
-            track.stop();
-          });
     }
 })
 
@@ -84,11 +74,6 @@ spectrum_canvas.addEventListener("mousedown", e => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
     dragMouseDown(e)
 })
-
-// footage_canvas.addEventListener("mousedown", e => {
-//     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
-//     dragMouseDown(e)
-// })
 
 m_area.addEventListener("mousedown", e => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
@@ -111,6 +96,56 @@ size_y.oninput = () => {
 //
 // video canvas things
 //
+function gotDevices(mediaDevices) {
+    cam_select.innerHTML = '';
+    for (str of ["Choose Camera", "IP Camera"]) {
+        const opt = document.createElement('option');
+        opt.value = str
+        const lab = str
+        const txt = document.createTextNode(lab)
+        opt.appendChild(txt)
+        cam_select.appendChild(opt)
+    }
+    let count = 1;
+    mediaDevices.forEach(mediaDevice => {
+      if (mediaDevice.kind === 'videoinput') {
+        const option = document.createElement('option');
+        option.value = mediaDevice.deviceId;
+        const label = mediaDevice.label || `Camera ${count++}`;
+        const textNode = document.createTextNode(label);
+        option.appendChild(textNode);
+        cam_select.appendChild(option);
+      }
+    });
+}
+
+navigator.mediaDevices.enumerateDevices().then(gotDevices);
+
+function stopMediaTracks(stream) {
+    if (stream) {
+        stream.getTracks().forEach(track => {
+        track.stop();
+        });
+    }
+}
+
+cam_select.addEventListener("change", () => {
+    if (cam_select.value === "Choose Camera" || cam_select.value === "") {
+        webcam_enabled = false;
+        stopMediaTracks(current_stream);
+        video_footage.src = ""
+    }
+    else if (cam_select.value === "IP Camera") {
+        webcam_enabled = false;
+        stopMediaTracks(current_stream);
+        change_footage(url_input.value);
+    }
+    else {
+        webcam_enabled = true;
+        video_footage.src = ""
+        init_webcam();
+    }
+})
 
 video_footage.onerror = () => {
     footage_error = true;
@@ -120,20 +155,18 @@ video_footage.onerror = () => {
 
 function update_video_canavs() {
     ctx.clearRect(0, 0, footage_canvas.width, footage_canvas.height)
-    if (webcam) {
+    if (webcam_enabled) {
         ctx.drawImage(webcam_footage, 0, 0, footage_canvas.width, footage_canvas.height)
     }
     else {
         ctx.drawImage(video_footage, 0, 0, footage_canvas.width, footage_canvas.height)
     }
-    if (grayscale) {
-        ctx.putImageData(new ImageData(get_grayscale(extract_pixels(ctx)),
-        footage_canvas.width, footage_canvas.height), 0, 0)
-    }
 }
 
 function change_footage(url) {
-    webcam = false
+    webcam_enabled = false
+    stopMediaTracks(current_stream)
+    cam_select.value = "IP Camera"
     footage_error = false
     console.log(url)
     video_footage.src = url
@@ -144,6 +177,7 @@ function change_footage(url) {
 
 // Access webcam
 async function init_webcam() {
+    video_constraints.deviceId = {exact: cam_select.value}
     navigator.mediaDevices.getUserMedia(constraints)
     .then(stream => {
         handleSuccess(stream)
@@ -155,8 +189,9 @@ async function init_webcam() {
 
 // Success
 function handleSuccess(stream) {
-    window.stream = stream;
-    webcam_footage.srcObject = stream
+    // window.stream = stream;
+    current_stream = stream
+    webcam_footage.srcObject = current_stream
     webcam_footage.play()
 }
 
@@ -175,7 +210,8 @@ function start_spectrum(pix) {
                 // label: 'Scatter Dataset',
                 data: get_box_spectrum(pix),
                 pointRadius: 0,
-                borderColor:               gradientStroke,
+                borderColor:               "#000000",
+                borderWidth:               1,
                 pointBorderColor:          gradientStroke,
                 pointBackgroundColor:      gradientStroke,
                 pointHoverBackgroundColor: gradientStroke,
@@ -198,21 +234,7 @@ function start_spectrum(pix) {
 
 function update_spectrum() {
     if (spectrum_chart) {
-        spectrum_chart.config.data = {
-            datasets: [{
-                // label: 'Scatter Dataset',
-                data: get_box_spectrum(extract_pixels(ctx)),
-                pointRadius: 0,
-                borderColor:               gradientStroke,
-                pointBorderColor:          gradientStroke,
-                pointBackgroundColor:      gradientStroke,
-                pointHoverBackgroundColor: gradientStroke,
-                pointHoverBorderColor:     gradientStroke,
-                fill: true,
-                backgroundColor: gradientStroke,
-                showLine: true
-            }]
-          }
+        spectrum_chart.config.data.datasets[0].data = get_box_spectrum(extract_pixels(ctx));
         spectrum_chart.update()
     }
     else {
@@ -231,6 +253,25 @@ function update_gradient() {
     gradientStroke.addColorStop(0.375, "#0000ff") // blue
     gradientStroke.addColorStop(0.23, "#660066") // violet
     gradientStroke.addColorStop(0, "#000000") // black
+
+    if (spectrum_chart) {
+        spectrum_chart.config.data = {
+            datasets: [{
+                data: get_box_spectrum(extract_pixels(ctx)),
+                pointRadius: 0,
+                borderColor:               "#000000",
+                borderWidth:               1,
+                pointBorderColor:          gradientStroke,
+                pointBackgroundColor:      gradientStroke,
+                pointHoverBackgroundColor: gradientStroke,
+                pointHoverBorderColor:     gradientStroke,
+                fill: true,
+                backgroundColor: gradientStroke,
+                showLine: true,
+            }]
+          }
+        spectrum_chart.update()
+    }
 }
 
 //
@@ -407,7 +448,7 @@ function px_to_percent(num, axis) {
 move_m_area(Number(start_y.value), m_area_stats.left)
 resize_m_area(0, Number(size_y.value) - m_area_stats.height)
 
-setInterval(update_video_canavs, 20)
+setInterval(update_video_canavs, 50)
 setInterval(update_spectrum, 100)
 
 update_gradient()

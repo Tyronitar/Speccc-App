@@ -1,9 +1,3 @@
-body {
-    min-width:800px;
-    width: auto !important;
-    width:800px;
-}
-
 .wrapper {
     display: block;
     width: 100%;
@@ -18,11 +12,12 @@ body {
 }
 
 .top {
-    display: block;
+    display: inline-block;
     width: 98%;
     height: 30%;
     position: relative;
     padding: 1%;
+    text-align: center;
 }
 
 #settings {
@@ -33,6 +28,7 @@ body {
     float: left;
     height: 100%;
     padding: 0%;
+    display: block;
 }
 
 #settings_top {
@@ -43,13 +39,6 @@ body {
     width: 100%;
 }
 
-#toggle_webcam {
-    height: 40%;
-}
-#settings_bottom {
-    height: 50%;
-}
-
 #size_y {
     width: 30px;
 }
@@ -58,11 +47,20 @@ body {
     width: 30px;
 }
 
+#m_area_stats {
+    width: 6%;
+    height: 90%;
+    top: 10%;
+    display: inline-block;
+    position: relative;
+}
+
 #video_wrapper {
     position: relative;
     float: right;
-    width: 66%;
+    width: 60%;
     height: 100%;
+    display: block;
 }
 
 #url_input_wrapper {
@@ -75,7 +73,7 @@ body {
     width: 65%;
     height: 80%;
     position: relative;
-
+    float: left;
 }
 
 #url_input_button {
@@ -91,6 +89,7 @@ body {
     height: 90%;
     width: 100%;
 }
+
 #footage {
     background-color: black;
     position: absolute;
@@ -101,6 +100,7 @@ body {
     z-index: auto;
 
 }
+
 #measurement_area {
     display: block;
     position: absolute;
@@ -111,6 +111,7 @@ body {
     top: 30%;
     z-index: 2;
 }
+
 .bottom {
     display: block;
     width: 98%;

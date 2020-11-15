@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> This is the layout </title>
-        <link rel="stylesheet" href="layout.css">
+        <title> Spectacular </title>
+        <link rel="stylesheet" href="./css/layout.css">
     </head>
     <body>
         <div class = "wrapper">
@@ -10,18 +10,17 @@
                 <div id = "settings">
                     <div id = "settings_top">
                         <h2 style="height: 50%;margin-top: 5%;margin-bottom: 2%;">SETTINGS</h2>
-                        <button id = "toggle_webcam">Toggle Webcam</button>
+                        <select id = "cam_select">Select Camera</select>
                     </div>
-                    <div id = "settings_bottom">
-                        <h2 style="height: 50%;margin-top: 5%;margin-bottom: 2%;">Measurement Area</h2>
-                        <span>
-                            <label id = "size_y_label">Size Y</label>
-                            <input id = "size_y" type="number" value="40">
-                        </span>
-                        <span>
-                            <label>Start Y</label>
-                            <input id = "start_y" type="number" value="30">
-                        </span>
+                </div>
+                <div id = "m_area_stats">
+                    <div style="float: right">
+                        <label id = "size_y_label">Size Y</label>
+                        <input id = "size_y" type="number" value="40">
+                    </div>
+                    <div style="float: right">
+                        <label>Start Y</label>
+                        <input id = "start_y" type="number" value="30">
                     </div>
                 </div>
                 <div id = "video_wrapper">
@@ -45,15 +44,21 @@
                     <div class="slidecontainer">
                       <h4 style="height: 1%;margin-top: 0%;margin-bottom: 0%;">CALLIBRATION SLIDER</h4>
                       <input type="range" min="350" max="750" value="500" class="slider" id="myRange">
+                      <span>
+                          <label id = "lambda1_label"> Peak Wavelength (nm)</label>
+                          <input id = "lambda1" type="number" value="40">
+                      </span>
+                      <span>
+                          <label id = "lambda2_label">Peak Wavelength (nm)</label>
+                          <input id = "lambda2" type="number" value="40">
+                      </span>
                     </div>
-                    <!-- <h1>SPECTRUM</h1> -->
                 </div>
             </div>
         </div>
-        <script src = "callibration.js"></script>
         <script src = "node_modules/chart.js/dist/Chart.bundle.js"></script>
-        <script src = "plotting_spectra.js"></script>
-        <script src = "image_extraction.js"></script>
-        <script src = "video.js"></script>
+        <script src = "js/plotting_spectra.js"></script>
+        <script src = "js/image_extraction.js"></script>
+        <script src = "js/video.js"></script>
     </body>
 </html>
