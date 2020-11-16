@@ -5,7 +5,7 @@
   "main": "main.js",
   "productName": "Spectacular",
   "scripts": {
-    "electron": "electron ."
+    "spectacular": "electron ."
   },
   "contributors": [
     "Tyrone McNichols",
