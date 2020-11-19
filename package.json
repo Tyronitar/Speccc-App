@@ -5,7 +5,8 @@
   "main": "main.js",
   "productName": "Spectacular",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "startOSX": "node_modules/electron/dist/Electron.app/Contents/MacOS/Electron ."
   },
   "contributors": [
     "Tyrone McNichols",
