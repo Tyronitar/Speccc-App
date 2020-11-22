@@ -1,7 +1,7 @@
 
 function extract_pixels(context) {
   //let context = document.getElementById("footage").getContext("2d")
-  return context.getImageData(0,0, footage.width, footage.height).data
+  return context.getImageData(0,0, context.canvas.width, context.canvas.height).data
 }
 
 function get_grayscale(pixels) {
@@ -29,6 +29,24 @@ function get_pixels_with_bar(pixels, line) {
     newpix[i+2] = 203
   }
   return newpix;
+}
+
+function get_graph_with_vertical_line(pixels, line, width, height) {
+  let newpix = Uint8ClampedArray.from(pixels)
+  for (let row = 0; row < height; row++) {
+    index = (row * width + line) * 4
+    for (let ind = Math.max(-line*4, line*4-0); ind<=Math.min((width-1-line)*4, line*4+0); ind+=4) {
+      newpix[index+ind  ] = 0
+      newpix[index+ind+1] = 0
+      newpix[index+ind+2] = 0
+      newpix[index+ind+3] = 255
+      //console.log(index+ind)
+    }
+  }
+  //console.log(width, height, pixels.length)
+  //console.log(newpix)
+  //console.log(new ImageData(newpix, width, height))
+  return new ImageData(newpix, width, height)
 }
 
 function get_intensity_of_box(pixels, ymin, ymax, xmin, xmax) {
