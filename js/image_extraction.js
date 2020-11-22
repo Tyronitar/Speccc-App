@@ -34,7 +34,7 @@ function get_pixels_with_bar(pixels, line) {
 function get_graph_with_vertical_line(pixels, line, width, height) {
   let newpix = Uint8ClampedArray.from(pixels)
   for (let row = 0; row < height; row++) {
-    index = (row * width + line) * 4
+    index = (row * width) * 4
     for (let ind = Math.max(-line*4, line*4-0); ind<=Math.min((width-1-line)*4, line*4+0); ind+=4) {
       newpix[index+ind  ] = 0
       newpix[index+ind+1] = 0
