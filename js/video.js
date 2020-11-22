@@ -236,11 +236,17 @@ function start_spectrum(pix) {
 function update_spectrum() {
     if (spectrum_chart) {
         spectrum_chart.config.data.datasets[0].data = get_box_spectrum(extract_pixels(ctx));
-        spectrum_chart.update()
-        
+        spectrum_chart.update();
+        var output = document.getElementById("demo");
+        var output2 = document.getElementById("demo2");
+        var prop = (output-350)/800;
+        var prop = (output-350)/800;
         spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
-          100, spec_line_canvas.width, spec_line_canvas.height),
-          0, 0)
+          Math.floor(0*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
+          0, 0)*/
+        spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
+          Math.floor(.5*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
+            0, 0)
 
     }
     else {
