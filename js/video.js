@@ -241,15 +241,19 @@ function update_spectrum() {
         prop = parseInt(prop.innerHTML);
         prop = (prop-350)/400;
         console.log(prop)
+        var prop2 = document.getElementById("demo2");
+        prop2 = parseInt(prop2.innerHTML);
+        prop2 = (prop2-350)/400;
+        console.log(prop2)
         /*
         var slidervalue2 = parseInt(document.getElementById("output2.innerHTML"));
         var prop2 = (slidervalue2-350)/400;*/
         spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
           Math.floor(prop*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
           0, 0)
-        /*spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
-          Math.floor(.1*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
-            0, 0)*/
+        spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
+          Math.floor(prop2*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
+            0, 0)
 
     }
     else {
