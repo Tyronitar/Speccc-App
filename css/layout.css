@@ -1,3 +1,17 @@
+h5 {
+  font-size: 1.5vw;
+}
+
+p {
+  font-size: 1.2vw;
+  margin: 0;
+}
+
+label {
+  font-size: 1.2vw;
+}
+
+
 .wrapper {
     display: block;
     width: 100%;
@@ -133,7 +147,7 @@
 
 #spectrum_canvas {
     background-color: white;
-    height: 90% !important;
+    height: 60% !important;
     width: 100% !important;
     position: relative;
     margin: auto;
@@ -142,7 +156,7 @@
 
 #spec_line_canvas {
   background_color: white;
-  height: 90%;
+  height: 60%;
   width: 100%;
   position: absolute;
   top: 0;
@@ -164,10 +178,15 @@ input[type=number] {
 #footage-vid {
     display: none;
 }
+
+.slidecontainer {
+  height: 40%;
+}
+
 .slider {
   -webkit-appearance: none;
   width: 100%;
-  height: 3.5%;
+  height: 10px;
   border-radius: 1%;
   background: #d3d3d3;
   outline: none;
@@ -196,7 +215,7 @@ input[type=number] {
 .slider2 {
   -webkit-appearance: none;
   width: 100%;
-  height: 3.5%;
+  height: 10px;
   border-radius: 1%;
   background: #d3d3d3;
   outline: none;

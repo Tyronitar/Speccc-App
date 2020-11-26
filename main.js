@@ -17,7 +17,7 @@ function createWindow() {
       protocol: 'file:',
       slashes: true,
    }))
-   win.webContents.openDevTools() // use this line to see dev console
+   // win.webContents.openDevTools() // use this line to see dev console
 }
 
 app.on('ready', createWindow)

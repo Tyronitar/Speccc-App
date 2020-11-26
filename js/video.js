@@ -87,10 +87,15 @@ m_area.addEventListener("wheel", e => {
 })
 
 start_y.oninput = () => {
+    start_y.value = Math.max(start_y.value, bounds.min_y)
+    start_y.value = Math.min(start_y.value, bounds.max_y - m_area_stats.height)
+
     move_m_area(Number(start_y.value), m_area_stats.left)
 }
 
 size_y.oninput = () => {
+    size_y.value = Math.max(size_y.value, bounds.min_y)
+    size_y.value = Math.min(size_y.value, bounds.max_y - m_area_stats.top)
     resize_m_area(0, Number(size_y.value) - m_area_stats.height)
 }
 
@@ -401,7 +406,7 @@ function in_bounds(arg, to_test) {
         return arg >= bounds.min_y && arg + m_area_stats.height <= bounds.max_y
     }
     else if (to_test === "bottom") {
-        return arg <= bounds.max_y && arg - m_area_stats.height >= bounds.min_y
+        return arg <= bounds.max_y && arg >= bounds.min_y
     }
     else if (to_test === "left") {
         return arg >= bounds.min_x
