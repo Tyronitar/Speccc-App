@@ -5,10 +5,19 @@
   "main": "main.js",
   "productName": "Spectacular",
   "scripts": {
-    "start": "electron .",
-    "startOSX": "node_modules/electron/dist/Electron.app/Contents/MacOS/Electron ."
+    "start": "electron-forge start",
+    "startOSX": "node_modules/electron/dist/Electron.app/Contents/MacOS/Electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "make-mac": "electron-forge make --platform darwin",
+    "make-linux": "npx @electron-forge/cli make --platform linux"
   },
   "contributors": [
+    "Tyrone McNichols",
+    "Marcos Perez",
+    "Elijah Paul"
+  ],
+  "authors": [
     "Tyrone McNichols",
     "Marcos Perez",
     "Elijah Paul"
@@ -16,6 +25,46 @@
   "license": "ISC",
   "dependencies": {
     "chart.js": "^2.9.4",
-    "electron": "^10.1.5"
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "^10.1.6"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "executableName": "Spectacular",
+        "icon": "./assets/icon"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "spectacular",
+            "platforms": ["win32"]
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": ["darwin"]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {
+            "icon": "./assets.icon.png",
+            "platforms": ["linux"]
+          }
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
