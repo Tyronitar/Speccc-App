@@ -21,7 +21,7 @@ label {
     left: 0%;
     right: 0%;
     margin-bottom: 0%;
-    background-color: wheat;
+    background-color: cornsilk;
     padding: 0%;
 }
 
@@ -36,7 +36,8 @@ label {
 
 #settings {
     position: relative;
-    background-color: gray;
+    background-color: wheat;
+    outline: 1px solid black;
     color: white;
     width: 33%;
     float: left;
@@ -53,6 +54,16 @@ label {
     width: 100%;
 }
 
+#top_right {
+  outline: 1px solid black;
+  background-color: wheat;
+  position: relative;
+  float: right;
+  width: 66%;
+  height: 100%;
+  display: block;
+}
+
 #size_y {
     width: 30px;
 }
@@ -62,17 +73,18 @@ label {
 }
 
 #m_area_stats {
-    width: 6%;
+    width: 10%;
     height: 90%;
     top: 10%;
     display: inline-block;
     position: relative;
+    margin: auto;
 }
 
 #video_wrapper {
     position: relative;
     float: right;
-    width: 60%;
+    width: 85%;
     height: 100%;
     display: block;
 }
@@ -80,7 +92,7 @@ label {
 #url_input_wrapper {
     position: relative;
     width: 100%;
-    height: 10%;
+    height: 0%;
 }
 
 #url_input {
@@ -94,13 +106,14 @@ label {
     width: 30%;
     height: 100%;
     float: right;
+    cursor: pointer;
 }
 
 #video_footage_wrapper {
     position: absolute;
     overflow: hidden;
     background-color: black;
-    height: 90%;
+    height: 100%;
     width: 100%;
 }
 
@@ -133,6 +146,7 @@ label {
     position: relative;
     margin: auto;
     padding: 0%;
+    background-color: wheat;
 
 }
 
@@ -147,7 +161,8 @@ label {
 
 #spectrum_canvas {
     background-color: white;
-    height: 60% !important;
+    border: 1px solid black;
+    height: 65% !important;
     width: 100% !important;
     position: relative;
     margin: auto;
@@ -155,7 +170,7 @@ label {
 }
 
 #spec_line_canvas {
-  height: 60%;
+  height: 65%;
   width: 100%;
   position: absolute;
   top: 0;
@@ -179,7 +194,10 @@ input[type=number] {
 }
 
 .slidecontainer {
-  height: 40%;
+  height: 34%;
+  top: 1%;
+  background-color: wheat;
+  border: 1px solid black;
 }
 
 .slider {

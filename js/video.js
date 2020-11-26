@@ -4,6 +4,7 @@
 
 const url_input = document.getElementById("url_input")
 const url_input_button = document.getElementById("url_input_button")
+const url_input_wrapper = document.getElementById("url_input_wrapper")
 const video_footage = document.getElementById("footage-img")
 const video_footage_wrapper = document.getElementById("video_footage_wrapper")
 const webcam_footage = document.getElementById("footage-vid")
@@ -135,18 +136,32 @@ function stopMediaTracks(stream) {
     }
 }
 
+function take_url_input(show) {
+    if (!show) {
+        url_input_wrapper.style.height = "0%"
+        video_footage_wrapper.style.height = "100%"
+    }
+    else {
+        url_input_wrapper.style.height = "10%"
+        video_footage_wrapper.style.height = "90%"
+    }
+}
+
 cam_select.addEventListener("change", () => {
     if (cam_select.value === "Choose Camera" || cam_select.value === "") {
         webcam_enabled = false;
         stopMediaTracks(current_stream);
         video_footage.src = ""
+        take_url_input(false);
     }
     else if (cam_select.value === "IP Camera") {
         webcam_enabled = false;
+        take_url_input(true);
         stopMediaTracks(current_stream);
         change_footage(url_input.value);
     }
     else {
+        take_url_input(false);
         webcam_enabled = true;
         video_footage.src = ""
         init_webcam();
@@ -218,12 +233,7 @@ function start_spectrum(pix) {
                 pointRadius: 0,
                 borderColor:               "#000000",
                 borderWidth:               1,
-                pointBorderColor:          gradientStroke,
-                pointBackgroundColor:      gradientStroke,
-                pointHoverBackgroundColor: gradientStroke,
-                pointHoverBorderColor:     gradientStroke,
                 fill: true,
-                backgroundColor: gradientStroke,
                 showLine: true
             }],
             showLine: true
@@ -234,8 +244,16 @@ function start_spectrum(pix) {
             animation: {
                 duration: 0
             },
+            scales: {
+                yAxes: [{
+                    ticks:{
+                        display: false
+                    }
+                }]
+            }
         }
     });
+    update_gradient();
 }
 
 function update_spectrum() {
@@ -277,22 +295,12 @@ function update_gradient() {
     gradientStroke.addColorStop(0, "#000000") // black
 
     if (spectrum_chart) {
-        spectrum_chart.config.data = {
-            datasets: [{
-                data: get_box_spectrum(extract_pixels(ctx)),
-                pointRadius: 0,
-                borderColor:               "#000000",
-                borderWidth:               1,
-                pointBorderColor:          gradientStroke,
-                pointBackgroundColor:      gradientStroke,
-                pointHoverBackgroundColor: gradientStroke,
-                pointHoverBorderColor:     gradientStroke,
-                fill: true,
-                backgroundColor: gradientStroke,
-                showLine: true,
-            }]
-          }
-        spectrum_chart.update()
+        const ds = spectrum_chart.config.data.datasets[0]
+        ds.pointBorderColor = gradientStroke
+        ds.pointBackgroundColor = gradientStroke
+        ds.pointHoverBackgroundColor = gradientStroke
+        ds.pointHoverBorderColor = gradientStroke
+        ds.backgroundColor = gradientStroke
     }
 }
 
@@ -466,11 +474,10 @@ function px_to_percent(num, axis) {
 //
 // Run when starting
 //
+take_url_input(false)
 
 move_m_area(Number(start_y.value), m_area_stats.left)
 resize_m_area(0, Number(size_y.value) - m_area_stats.height)
 
 setInterval(update_video_canavs, 50)
 setInterval(update_spectrum, 100)
-
-update_gradient()

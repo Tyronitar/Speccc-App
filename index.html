@@ -9,32 +9,34 @@
             <div class = "top">
                 <div id = "settings">
                     <div id = "settings_top">
-                        <h2 style="height: 50%;margin-top: 5%;margin-bottom: 2%;">SETTINGS</h2>
+                        <h2 style="height: 50%;margin-top: 5%;margin-bottom: 2%;color: #000;">SETTINGS</h2>
                         <select id = "cam_select">Select Camera</select>
                     </div>
                 </div>
-                <div id = "m_area_stats">
-                    <div style="float: right">
-                        <label id = "size_y_label">Size Y</label>
-                        <input id = "size_y" type="number" value="40">
+                <div id = "top_right">
+                    <div id = "m_area_stats">
+                        <div style="float: right">
+                            <label id = "size_y_label">Size Y</label>
+                            <input id = "size_y" type="number" value="40">
+                        </div>
+                        <div style="float: right">
+                            <label>Start Y</label>
+                            <input id = "start_y" type="number" value="30">
+                        </div>
                     </div>
-                    <div style="float: right">
-                        <label>Start Y</label>
-                        <input id = "start_y" type="number" value="30">
-                    </div>
-                </div>
-                <div id = "video_wrapper">
-                    <div id = "url_input_wrapper">
-                        <input id = "url_input" type="text" placeholder="Type url here">
-                        <button id = "url_input_button">Connect to Camera</button>
-                    </div>
-                    <div id = "video_footage_wrapper">
-                        <img id = "footage-img" src = "" onerror="this.style.display='none'",
-                        crossOrigin="Anonymous">
-                        <video id = "footage-vid"></video>
-                        <canvas id = "footage">
-                        </canvas>
-                        <div id = "measurement_area"></div>
+                    <div id = "video_wrapper">
+                        <div id = "url_input_wrapper">
+                            <input id = "url_input" type="text" placeholder="Type url here">
+                            <button id = "url_input_button">Connect to Camera</button>
+                        </div>
+                        <div id = "video_footage_wrapper">
+                            <img id = "footage-img" src = "" onerror="this.style.display='none'",
+                            crossOrigin="Anonymous">
+                            <video id = "footage-vid"></video>
+                            <canvas id = "footage">
+                            </canvas>
+                            <div id = "measurement_area"></div>
+                        </div>
                     </div>
                 </div>
             </div>
