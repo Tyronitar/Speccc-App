@@ -195,6 +195,7 @@ input[type=number] {
 
 .slidecontainer {
   height: 34%;
+  width: 100%;
   top: 1%;
   background-color: wheat;
   border: 1px solid black;

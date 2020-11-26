@@ -5,12 +5,14 @@
   "main": "main.js",
   "productName": "Spectacular",
   "scripts": {
-    "start": "electron-forge start",
+    "start-forge": "electron-forge start",
+    "start": "electron .",
     "startOSX": "node_modules/electron/dist/Electron.app/Contents/MacOS/Electron .",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "make-mac": "electron-forge make --platform darwin",
-    "make-linux": "npx @electron-forge/cli make --platform linux"
+    "make-linux": "npx @electron-forge/cli make --platform linux",
+    "build-linux": "node ./node_modules/electron-packager/bin/electron-packager.js . --platform=linux --icons=assets/icon.png --out=out --overwrite"
   },
   "contributors": [
     "Tyrone McNichols",
