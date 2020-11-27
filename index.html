@@ -9,12 +9,14 @@
             <div class = "top">
                 <div id = "settings">
                     <div id = "settings_top">
-                        <h2 style="height: 50%;margin-top: 0%;margin-bottom: 2%;color: #000;">SETTINGS</h2>
+                        <h2 style="margin-top: 0%;margin-bottom: 2%;color: #000;font-size: 2vw;">Video Input</h2>
                         <select id = "cam_select">Select Camera</select>
                     </div>
                     <div id = "settings_files">
+                        <h2 style="margin-top: 0%;margin-bottom: 2%;color: #000;font-size: 2vw;">Save</h2>
                         <a id ='save_spectrum_link'><button id = "save_spectrum_button">Save Spectrum Graph</button></a>
                         <button id = "save_data">Save Data</button>
+                        <a id ='save_picture_link'><button id = "save_picture_button">Save Camera Image</button></a>
                     </div>
                 </div>
                 <div id = "top_right">
@@ -51,7 +53,7 @@
                     <div class="slidecontainer">
                       <h5 style="margin-top: 0%;margin-bottom: 0%;">CALIBRATION SLIDERS</h5>
                       <input type="range" min="350" max="750" value="500" class="slider" id="myRange">
-                      <input type="range" min="350" max="750" value="500" class="slider2" id="myRange2">
+                      <input type="range" min="350" max="750" value="500" class="slider" id="myRange2">
                       <p>Measured Peak Wavelength (Top Slider): <span id="demo"></span></p>
                       <p>Measured Peak Wavelength (Bottom Slider): <span id="demo2"></span></p>
                       <span>

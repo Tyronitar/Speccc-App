@@ -1,14 +1,14 @@
 h5 {
-  font-size: 1.5vw;
+  font-size: 1.15vw;
 }
 
 p {
-  font-size: 1.2vw;
+  font-size: 1vw;
   margin: 0;
 }
 
 label {
-  font-size: 1.2vw;
+  font-size: 1vw;
 }
 
 .wrapper {
@@ -37,7 +37,7 @@ label {
     position: relative;
     color: white;
     top: 0;
-    width: 33%;
+    width: 25%;
     float: left;
     height: 100%;
     padding: 0%;
@@ -70,7 +70,7 @@ label {
   background-color: wheat;
   position: relative;
   float: right;
-  width: 66%;
+  width: 74%;
   height: 100%;
   display: block;
 }
@@ -229,7 +229,7 @@ input[type=number] {
   appearance: none;
   width: 10px;
   height: 10px;
-  border-radius: 1%;
+  /* border-radius: 1%; */
   background: #4CAF50;
   cursor: pointer;
 }
@@ -241,7 +241,7 @@ input[type=number] {
   background: #4CAF50;
   cursor: pointer;
 }
-.slider2 {
+/* .slider2 {
   -webkit-appearance: none;
   width: 100%;
   height: 5%;
@@ -251,9 +251,9 @@ input[type=number] {
   opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
-}
+} */
 
-.slider2::-webkit-slider-thumb {
+/* .slider2::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 10px;
@@ -261,12 +261,12 @@ input[type=number] {
   border-radius: 1%;
   background: #4CAF50;
   cursor: pointer;
-}
+} */
 
-.slider2::-moz-range-thumb {
+/* .slider2::-moz-range-thumb {
   width: 10px;
   height: 10px;
   border-radius: 1%;
   background: #4CAF50;
   cursor: pointer;
-}
+} */
