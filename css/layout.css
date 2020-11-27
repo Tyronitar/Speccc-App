@@ -11,7 +11,6 @@ label {
   font-size: 1.2vw;
 }
 
-
 .wrapper {
     display: block;
     width: 100%;
@@ -36,9 +35,8 @@ label {
 
 #settings {
     position: relative;
-    background-color: wheat;
-    outline: 1px solid black;
     color: white;
+    top: 0;
     width: 33%;
     float: left;
     height: 100%;
@@ -47,11 +45,24 @@ label {
 }
 
 #settings_top {
+    background-color: wheat;
+    outline: 1px solid black;
     display: block;
     position: relative;
-    top: 0%;
+    margin: 0;
     height: 30%;
     width: 100%;
+}
+
+#settings_files {
+  background-color: wheat;
+  outline: 1px solid black;
+  display: block;
+  position: relative;
+  height: 66%;
+  top: 4%;
+  width: 100%;
+
 }
 
 #top_right {
