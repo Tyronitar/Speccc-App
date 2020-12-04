@@ -270,7 +270,10 @@ function update_spectrum() {
     if (spectrum_chart) {
         spectrum_chart.config.data.datasets[0].data = get_box_spectrum(extract_pixels(ctx));
         spectrum_chart.update();
-
+        if (sliders_started) {
+          slider.oninput()
+          slider2.oninput()
+        }
     }
     else {
         start_spectrum(extract_pixels(ctx))
