@@ -7,6 +7,8 @@ let calibrating = false;
 
 output.innerHTML = slider.value;
 
+var showing_lines = true;
+
 slider.oninput = function() {
   //output.innerHTML = this.value;
   chart_max = spectrum_chart.scales["x-axis-1"].max
@@ -15,8 +17,8 @@ slider.oninput = function() {
   draw_lines();
 }
 
-const slider2 = document.getElementById("myRange2");
-const output2 = document.getElementById("demo2");
+const slider2 = document.getElementById("myRange2")
+const output2 = document.getElementById("demo2")
 output2.innerHTML = slider2.value;
 
 slider2.oninput = function() {
@@ -29,25 +31,27 @@ slider2.oninput = function() {
 sliders_started = true
 
 function draw_lines() {
-  chart_max = spectrum_chart.scales["x-axis-1"].max
-  chart_min = spectrum_chart.scales["x-axis-1"].min
-  var prop = document.getElementById("demo");
-  prop = parseFloat(prop.innerHTML);
-  prop = (prop-chart_min)/(chart_max - chart_min);
-  prop = 0.01 + 0.98 * prop;
-  //console.log(prop)
-  var prop2 = document.getElementById("demo2");
-  prop2 = parseFloat(prop2.innerHTML);
-  prop2 = (prop2-chart_min)/(chart_max - chart_min);
-  prop2 = 0.01 + 0.98 * prop2;
-  //console.log(prop2)
-  spec_line_ctx.putImageData(spec_line_ctx.createImageData(spec_line_canvas.width, spec_line_canvas.height), 0, 0)
-  spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
-    Math.floor(prop*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
-    0, 0)
-  spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
-    Math.floor(prop2*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
+  if (showing_lines) {
+    chart_max = spectrum_chart.scales["x-axis-1"].max
+    chart_min = spectrum_chart.scales["x-axis-1"].min
+    var prop = document.getElementById("demo");
+    prop = parseFloat(prop.innerHTML);
+    prop = (prop-chart_min)/(chart_max - chart_min);
+    prop = 0.01 + 0.98 * prop;
+    //console.log(prop)
+    var prop2 = document.getElementById("demo2");
+    prop2 = parseFloat(prop2.innerHTML);
+    prop2 = (prop2-chart_min)/(chart_max - chart_min);
+    prop2 = 0.01 + 0.98 * prop2;
+    //console.log(prop2)
+    spec_line_ctx.putImageData(spec_line_ctx.createImageData(spec_line_canvas.width, spec_line_canvas.height), 0, 0)
+    spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
+      Math.floor(prop*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
       0, 0)
+    spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
+      Math.floor(prop2*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
+        0, 0)
+  }
 }
 
 var calibration = {
@@ -72,20 +76,19 @@ var calibration = {
     pos1_new  = parseFloat(lambda1.value)
     pos2_new  = parseFloat(lambda2.value)
 
-    start = (pos2_new * (pos1_orig-this.box_minimum) - pos2_new * (pos2_orig - this.box_minimum))
-    console.log(start)
+    // Funky algebra
+    start = (pos2_new * (pos1_orig - this.box_minimum) - pos1_new * (pos2_orig - this.box_minimum))
     start /= (pos1_orig - pos2_orig)
 
-    end = (pos2_new * (pos1_orig-this.box_maximum) - pos2_new * (pos2_orig - this.box_maximum))
-    console.log(end)
+    end = (pos2_new * (pos1_orig - this.box_maximum) - pos1_new * (pos2_orig - this.box_maximum))
     end /= (pos1_orig - pos2_orig)
 
-    console.log(pos1_orig, pos2_orig)
-    console.log(pos1_new, pos2_new)
-    console.log(start, end)
+
 
     this.box_minimum = start
     this.box_maximum = end
+    spec_line_ctx.putImageData(spec_line_ctx.createImageData(spec_line_canvas.width, spec_line_canvas.height), 0, 0)
+    showing_lines = false;
   }
 
 }
