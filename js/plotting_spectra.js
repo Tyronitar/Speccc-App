@@ -20,9 +20,11 @@ was written, the intensity will always be an array of 1000 integer elements.
 This returns an array of the form [{x:wavelength, y:intensity},...]
 */
 function make_spectra (intensity){
-    let spectrum = Array(intensity.length);
+    let spectrum = Array(intensity.length)
+    let start = calibration.start()
+    let end = calibration.end()
     for (let i = 0; i<intensity.length; i++){
-        spectrum[i] = {x: 740-((740-380)*(i/(intensity.length-1))), y:intensity[i]};
+        spectrum[i] = {x: end-((end-start)*(i/(intensity.length-1))), y:intensity[i]/255};
    }
    return spectrum;
 }

@@ -17,6 +17,9 @@ const start_y = document.getElementById("start_y")
 const size_y = document.getElementById("size_y")
 const cam_select = document.getElementById('cam_select');
 const spec_line_canvas = document.getElementById("spec_line_canvas")
+const lambda1 = document.getElementById("lambda1")
+const lambda2 = document.getElementById("lambda2")
+
 //
 // canvas contexts
 //
@@ -25,11 +28,16 @@ const ctx = footage_canvas.getContext("2d");
 const spec_ctx = spectrum_canvas.getContext("2d")
 const spec_line_ctx = spec_line_canvas.getContext("2d")
 
+var sliders_started = false;
+
 // set resolution of canvases
 footage_canvas.width = 1000;
 footage_canvas.height = 1000;
 spectrum_canvas.width = 1000;
 spectrum_canvas.height = 1000;
+
+spec_line_canvas.width = 1000;
+spec_line_canvas.height = 1000;
 
 //
 // assorted globals
@@ -247,7 +255,9 @@ function start_spectrum(pix) {
             scales: {
                 yAxes: [{
                     ticks:{
-                        display: false
+                        display: false,
+                        beginAtZero: true,
+                        suggestedMax: 1
                     }
                 }]
             }
@@ -260,21 +270,6 @@ function update_spectrum() {
     if (spectrum_chart) {
         spectrum_chart.config.data.datasets[0].data = get_box_spectrum(extract_pixels(ctx));
         spectrum_chart.update();
-        var prop = document.getElementById("demo");
-        prop = parseInt(prop.innerHTML);
-        prop = (prop-350)/400;
-        //console.log(prop)
-        var prop2 = document.getElementById("demo2");
-        prop2 = parseInt(prop2.innerHTML);
-        prop2 = (prop2-350)/400;
-        //console.log(prop2)
-        spec_line_ctx.putImageData(spec_line_ctx.createImageData(spec_line_canvas.width, spec_line_canvas.height), 0, 0)
-        spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
-          Math.floor(prop*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
-          0, 0)
-        spec_line_ctx.putImageData(get_graph_with_vertical_line(extract_pixels(spec_line_ctx),
-          Math.floor(prop2*spec_line_canvas.width), spec_line_canvas.width, spec_line_canvas.height),
-            0, 0)
 
     }
     else {
@@ -323,6 +318,10 @@ let bounds = {min_w: 5,
 const size_diff = 2
 
 function resize_m_area(dx, dy) {
+    if (sliders_started) {
+      slider.oninput()
+      slider2.oninput()
+    }
     const neg = dx < 0 ? -1 : 1
     let dw = neg * size_diff
     if (in_bounds(m_area_stats.width + dw, "width") && dx !== 0) {
@@ -384,6 +383,10 @@ function resize_m_area(dx, dy) {
 }
 
 function move_m_area(new_top, new_left) {
+    if (sliders_started) {
+      slider.oninput()
+      slider2.oninput()
+    }
     if (in_bounds(new_top, "top")) {
         m_area_stats.top = new_top
         m_area_stats.bottom = m_area_stats.top + m_area_stats.height
