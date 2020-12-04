@@ -204,7 +204,7 @@ input[type=number] {
     display: none;
 }
 
-.slidecontainer {
+#slidecontainer {
   height: 34%;
   width: 100%;
   top: 1%;

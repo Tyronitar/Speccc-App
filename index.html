@@ -17,6 +17,7 @@
                         <a id ='save_spectrum_link'><button id = "save_spectrum_button">Save Spectrum Graph</button></a>
                         <button id = "save_data">Save Data</button>
                         <a id ='save_picture_link'><button id = "save_picture_button">Save Camera Image</button></a>
+                        <button id = "calibrate_button">Calibrate</button>
                     </div>
                 </div>
                 <div id = "top_right">
@@ -50,7 +51,7 @@
                 <div id = "spectrum">
                     <canvas id = "spectrum_canvas"></canvas>
                     <canvas id = "spec_line_canvas"></canvas>
-                    <div class="slidecontainer">
+                    <div id="slidecontainer">
                       <h5 style="margin-top: 0%;margin-bottom: 0%;">CALIBRATION SLIDERS</h5>
                       <input type="range" min="350" max="750" value="500" class="slider" id="myRange">
                       <input type="range" min="350" max="750" value="500" class="slider" id="myRange2">

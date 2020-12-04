@@ -1,5 +1,10 @@
 const slider = document.getElementById("myRange");
 const output = document.getElementById("demo");
+const calibrate_button = document.getElementById("calibrate_button")
+const slide_container = document.getElementById("slidecontainer")
+
+let calibrating = false;
+
 output.innerHTML = slider.value;
 
 slider.oninput = function() {
@@ -83,5 +88,23 @@ var calibration = {
     this.box_maximum = end
   }
 
-
 }
+
+function toggle_calibration() {
+  calibrating = !calibrating;
+  if (!calibrating) {
+    spectrum_canvas.style.height = "100%"
+    spec_line_canvas.style.height = "100%"
+    slide_container.style.height = "0%"
+  }
+  else {
+    spectrum_canvas.style.height = "65%"
+    spec_line_canvas.style.height = "65%"
+    slide_container.style.height = "34%"
+  }
+  
+}
+
+calibrate_button.addEventListener("click", () => {
+  toggle_calibration();
+})
