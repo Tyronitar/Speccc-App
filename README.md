@@ -1,5 +1,5 @@
-Instructions: 
- <b>Windows</b> \n
-The application can be
-![spectrum.png](spectrum.png)
-Mac 
+Instructions: <br />
+ <b>Windows</b> <br />
+The application can be <br />
+![spectrum.png](spectrum.png)<br />
+Mac <br />
