@@ -173,14 +173,15 @@ label {
 #spectrum_canvas {
     background-color: white;
     border: 1px solid black;
-    height: 65% !important;
-    width: 100% !important;
+    height: 65%;
+    width: 100%;
     position: relative;
     margin: auto;
     top: 0;
 }
 
 #spec_line_canvas {
+  display: none;
   height: 65%;
   width: 100%;
   position: absolute;
@@ -210,6 +211,7 @@ input[type=number] {
   top: 1%;
   background-color: wheat;
   border: 1px solid black;
+  display: none;
 }
 
 .slider {

@@ -1,6 +1,7 @@
 const slider = document.getElementById("myRange");
 const output = document.getElementById("demo");
 const calibrate_button = document.getElementById("calibrate_button")
+const save_cal = document.getElementById("save_calibration")
 const slide_container = document.getElementById("slidecontainer")
 
 let calibrating = false;
@@ -96,18 +97,27 @@ var calibration = {
 function toggle_calibration() {
   calibrating = !calibrating;
   if (!calibrating) {
+    calibrate_button.innerHTML = "Open Calibration Menu"
     spectrum_canvas.style.height = "100%"
-    spec_line_canvas.style.height = "100%"
-    slide_container.style.height = "0%"
+    slide_container.style.display = "none"
+    spec_line_canvas.style.display = "none"
+    save_cal.style.display = "none"
   }
   else {
+    calibrate_button.innerHTML = "Close Calibration Menu"
     spectrum_canvas.style.height = "65%"
-    spec_line_canvas.style.height = "65%"
-    slide_container.style.height = "34%"
+    slide_container.style.display = "block"
+    spec_line_canvas.style.display = "block"
+    save_cal.style.display = "block"
   }
-  
 }
+
+
 
 calibrate_button.addEventListener("click", () => {
   toggle_calibration();
+})
+
+save_cal.addEventListener("click", () => {
+  calibration.update()
 })

@@ -274,6 +274,7 @@ function update_spectrum() {
           slider.oninput()
           slider2.oninput()
         }
+        update_gradient()
     }
     else {
         start_spectrum(extract_pixels(ctx))
@@ -283,6 +284,7 @@ function update_spectrum() {
 function update_gradient() {
     let curr_width = spectrum_div.offsetWidth
     gradientStroke = spec_ctx.createLinearGradient(0, 0, curr_width, 0)
+    
     gradientStroke.addColorStop(1, "#000000") // black
     gradientStroke.addColorStop(0.825, "#ff0000") // red
     gradientStroke.addColorStop(0.75, "#ffff00") // yellow
