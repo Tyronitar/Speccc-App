@@ -1,4 +1,4 @@
 Instructions: 
 Windows
-The application ![](spectrum.png)
+The application ![spectrum.png](spectrum.png)
 Mac 
