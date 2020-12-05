@@ -1,4 +1,4 @@
-<br />![icon](icon.png)<br />
+<br />![icon](assets/icon.png)<br />
 Instructions: <br />
 *Installation and set up* <br />
 **Windows** <br />
