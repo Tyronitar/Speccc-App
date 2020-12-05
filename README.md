@@ -1,4 +1,5 @@
-<img src="assets/icon.png" width="150"/> **Instructions** <br />
+<img src="assets/icon.png" width="150"/> 
+            <title>Instructions</title>
 *Installation and set up* <br />
 **Windows** <br />
 The application can be installed by either running the installer or by extracting and running the ZIP file.  The app can be run simply by double clicking the extracted file. <br />
