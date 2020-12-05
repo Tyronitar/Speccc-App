@@ -1,4 +1,4 @@
 Instructions: 
 Windows
-The application ![spectrum.png](spectrum.png)
+The application can be <b>![spectrum.png](spectrum.png)</b>
 Mac 
