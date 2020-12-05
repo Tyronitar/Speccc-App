@@ -104,6 +104,7 @@ function toggle_calibration() {
     save_cal.style.display = "none"
   }
   else {
+    showing_lines = true
     calibrate_button.innerHTML = "Close Calibration Menu"
     spectrum_canvas.style.height = "65%"
     slide_container.style.display = "block"
@@ -120,4 +121,5 @@ calibrate_button.addEventListener("click", () => {
 
 save_cal.addEventListener("click", () => {
   calibration.update()
+  toggle_calibration()
 })

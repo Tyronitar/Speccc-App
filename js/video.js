@@ -257,7 +257,6 @@ function start_spectrum(pix) {
                     ticks:{
                         display: false,
                         beginAtZero: true,
-                        suggestedMax: 1
                     }
                 }]
             }

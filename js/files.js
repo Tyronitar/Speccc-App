@@ -41,7 +41,7 @@ function save_data() {
     })
     if (location && data) {
         const stream = fs.createWriteStream(location)
-        stream.write('wavelength (nm),intensity (%)\n')
+        stream.write('wavelength (nm),normalized intensity\n')
         for (point of data) {
             stream.write(`${point.x},${point.y}\n`)
         }
